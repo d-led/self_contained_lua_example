@@ -1,5 +1,5 @@
-self_contained_lua_example
-==========================
+a self contained lua example
+============================
 
 This is an example of a C++ program with embedded lua scripts.
 
