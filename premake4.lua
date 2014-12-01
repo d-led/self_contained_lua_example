@@ -31,7 +31,7 @@ local settings = {
 includedirs { settings.includedirs[OS] }
 libdirs { settings.libdirs[OS] }
 
-make_console_app('self_contained_lua_example', { 'self_contained_lua_example.cpp' })
+make_console_app('self_contained_lua_example', { '*.h', '*.cpp' })
 
 links { settings.links[OS] }
 

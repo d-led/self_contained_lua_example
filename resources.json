@@ -1,0 +1,12 @@
+{
+    "namespace": "test",
+    "header": "../resource.h",
+    "source": "../resource.cpp",
+    "resources": [
+        {
+            "name": "hello",
+            "source_type": "string",
+            "source": "print'hello!'"
+        }
+    ]
+}
