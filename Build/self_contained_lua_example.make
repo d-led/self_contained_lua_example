@@ -64,6 +64,7 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/resource.o \
 	$(OBJDIR)/self_contained_lua_example.o \
 
 RESOURCES := \
@@ -123,6 +124,10 @@ $(GCH): $(PCH)
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
+
+$(OBJDIR)/resource.o: ../resource.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 
 $(OBJDIR)/self_contained_lua_example.o: ../self_contained_lua_example.cpp
 	@echo $(notdir $<)
