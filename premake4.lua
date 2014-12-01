@@ -37,3 +37,23 @@ links { settings.links[OS] }
 
 make_cpp11()
 
+--- http://stackoverflow.com/a/9676174/847349 ---
+function exec(command)
+	local handle = io.popen(command)
+	local result = handle:read("*a")
+	handle:close()
+	return result
+end
+
+newaction {
+   trigger     = "res",
+   description = "compile the resources",
+   execute     = function ()
+   		local uname = exec 'uname' :lower()
+   		if uname == 'macosx' or uname == 'darwin' then
+			exec('ris/ris.osx resources.json')
+		else
+			exec('ris/ris resources.json')
+		end
+   end
+}
