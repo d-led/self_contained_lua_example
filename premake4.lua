@@ -38,7 +38,7 @@ make_static_lib('bundle',{
 })
 make_cpp11()
 
-make_console_app('self_contained_lua_example', { '*.h', '*.cpp' })
+make_console_app('self_contained_lua_example', { '*.h', '*.cpp', '*.lua', '*.json' })
 
 run_target_after_build()
 

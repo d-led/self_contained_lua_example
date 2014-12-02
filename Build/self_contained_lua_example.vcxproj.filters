@@ -2,11 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Headers">
-      <UniqueIdentifier>{9E71E862-ACDF-DE40-956F-58325C2B60AB}</UniqueIdentifier>
+      <UniqueIdentifier>{64544CB9-5391-1640-BF94-61B7B36C2E48}</UniqueIdentifier>
     </Filter>
     <Filter Include="Sources">
-      <UniqueIdentifier>{F52D7D83-6B09-E640-A510-024816ACD3E4}</UniqueIdentifier>
+      <UniqueIdentifier>{46D82EAD-77B3-E34C-8ED7-E2273B0BFB12}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\premake4.lua" />
+    <None Include="..\resources.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\resource.h">
