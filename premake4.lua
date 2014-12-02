@@ -46,10 +46,10 @@ links{settings.links[OS],'bundle'}
 
 make_cpp11()
 
---- http://stackoverflow.com/a/9676174/847349 ---
 function exec(command)
 	local handle = io.popen(command)
 	local result = handle:read("*a")
+	print(result)
 	handle:close()
 	return result
 end
