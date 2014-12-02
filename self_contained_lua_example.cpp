@@ -39,9 +39,10 @@ int main() {
 
         // set a custom module loader
         set_loader(s.getState());
-
+        
+        // load a module from memory
         s.doString("my_module = require 'test/test'");
-
+        
         s["my_module"]["hello"]();
 
         s.doString("require 'lualinq'");
