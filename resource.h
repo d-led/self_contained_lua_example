@@ -13,7 +13,7 @@ template <typename TInserter>
 static void GetKeys(TInserter inserter) {
     static const char* keys[] = {
         "hello",
-        "test/module",
+        "test/test",
     };
     for (auto key : keys) {
         inserter(key);

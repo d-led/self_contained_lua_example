@@ -17,7 +17,7 @@ std::string Resource::test_module() {
 std::string Resource::Get(std::string const& key) {
     static std::unordered_map<std::string,ResourceGetter> getters = {
         { "hello", Resource::hello },
-        { "test/module", Resource::test_module },
+        { "test/test", Resource::test_module },
     };
     auto getter = getters.find(key);
     if (getter == getters.end())

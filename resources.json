@@ -9,7 +9,7 @@
       },
       {
          "member_name" : "test_module",
-         "name" : "test/module",
+         "name" : "test/test",
          "source" : "local t={}\nt.hello=function() print'hello!' end\nreturn t\n",
          "source_type" : "string"
       }
