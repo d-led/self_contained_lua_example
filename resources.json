@@ -12,6 +12,12 @@
          "name" : "test/test",
          "source" : "local t={}\nt.hello=function() print'hello from resource module!' end\nreturn t\n",
          "source_type" : "string"
+      },
+      {
+         "compression" : "LZ4HC",
+         "name" : "lualinq",
+         "source" : "lualinq/release/lualinq/lualinq.lua",
+         "source_type" : "file"
       }
    ],
    "source" : "resource.cpp"

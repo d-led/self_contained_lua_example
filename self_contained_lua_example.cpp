@@ -37,14 +37,23 @@ int main() {
         lua::State s;
         s.doString(test::Resource::hello());
 
-        s.set("test", s.doString(test::Resource::test_module()));
-        s.doString("test.hello()");
-
+        // set a custom module loader
         set_loader(s.getState());
 
         s.doString("my_module = require 'test/test'");
 
         s["my_module"]["hello"]();
+
+        s.doString("require 'lualinq'");
+
+        // example from lualinq docu, Copyright (c) 2014, Marco Mastropaolo
+        s.doString(R"(
+            local array = { { say="ciao", lang="ita" }, { say="hello", lang="eng" }, }
+            from(array)
+                :where("lang", "ita")
+                :select("say")
+                :foreach(print)
+        )");
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
