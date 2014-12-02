@@ -44,7 +44,8 @@ int main() {
         s.doString("my_module = require 'test/test'");
         
         s["my_module"]["hello"]();
-
+        
+ .      // Another module from static resources
         s.doString("require 'lualinq'");
 
         // example from lualinq docu, Copyright (c) 2014, Marco Mastropaolo
