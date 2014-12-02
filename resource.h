@@ -5,6 +5,7 @@ namespace test {
 class Resource /*final*/ {
 public:
     static std::string hello();
+    static std::string test_module();
 public:
     typedef std::string(*ResourceGetter)();
 public: // key/value api
@@ -12,6 +13,7 @@ template <typename TInserter>
 static void GetKeys(TInserter inserter) {
     static const char* keys[] = {
         "hello",
+        "test/module",
     };
     for (auto key : keys) {
         inserter(key);

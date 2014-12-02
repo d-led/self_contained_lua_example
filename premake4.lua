@@ -54,15 +54,25 @@ function exec(command)
 	return result
 end
 
+function get_uname()
+	local uname = exec 'uname'
+	uname = uname or 'windows'
+	uname = uname:lower():gsub("^%s*(.-)%s*$", "%1") --trimmed--
+	return uname
+end
+
 newaction {
    trigger     = "res",
    description = "compile the resources",
    execute     = function ()
-   		local uname = exec 'uname' :lower()
-   		if uname == 'macosx' or uname == 'darwin' then
-			exec('ris/ris.osx resources.json')
-		else
-			exec('ris/ris resources.json')
-		end
+   		local ok = false
+   		local uname = get_uname()
+   		if uname == 'windows' or uname:find'mingw' then
+   			exec[[ris\ris resources.json]]
+		elseif uname == 'macosx' or uname == 'darwin' then
+			exec[[ris/ris.osx resources.json]]
+   		elseif uname == 'linux' then
+   			exec[[ris/ris resources.json]]
+   		end
    end
 }
