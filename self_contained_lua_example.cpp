@@ -9,6 +9,7 @@ int resource_module_loader(lua_State* L) {
     const char* name = lua_tostring(L,-1);
     test::Resource::GetKeys([name, L](std::string const& resource_name) {
         if (resource_name == name) {
+            lua_pop(L, 1);
             auto res = test::Resource::Get(resource_name);
             int ret = luaL_loadbuffer(L, res.c_str(), res.size(), name);
             switch (ret) {
@@ -17,7 +18,8 @@ int resource_module_loader(lua_State* L) {
                 case LUA_ERRSYNTAX:
                     return luaL_error(L, "LUA_ERRSYNTAX: %s\n", lua_tostring(L, -1));
             }
-            return 1;
+            auto top = lua_gettop(L);
+            return top;
         }
     });
 
