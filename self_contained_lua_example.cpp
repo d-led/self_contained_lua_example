@@ -6,24 +6,24 @@
 #include <lua.hpp>
 
 int resource_module_loader(lua_State* L) {
-    const char* name = lua_tostring(L,-1);
-    test::Resource::GetKeys([name, L](std::string const& resource_name) {
+    const char* name = luaL_checkstring(L, 1);
+    lua_pop(L, 1);
+    auto top = lua_gettop(L);
+    test::Resource::GetKeys([name, L, &top](std::string const& resource_name) {
         if (resource_name == name) {
-            lua_pop(L, 1);
             auto res = test::Resource::Get(resource_name);
             int ret = luaL_loadbuffer(L, res.c_str(), res.size(), name);
             switch (ret) {
                 case LUA_ERRMEM:
-                    return luaL_error(L, "LUA_ERRMEM: %s\n", lua_tostring(L, -1));
+                    return luaL_error(L, "Memory error: %s\n", lua_tostring(L, -1));
                 case LUA_ERRSYNTAX:
-                    return luaL_error(L, "LUA_ERRSYNTAX: %s\n", lua_tostring(L, -1));
+                    return luaL_error(L, "Syntax error: %s\n", lua_tostring(L, -1));
             }
-            auto top = lua_gettop(L);
-            return top;
+            top = 1;
         }
     });
 
-    return 0;
+    return top;
 }
 
 void set_loader(lua_State* L) {
@@ -43,6 +43,8 @@ int main() {
         set_loader(s.getState());
 
         s.doString("my_module = require 'test/test'");
+
+        s["my_module"]["hello"]();
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;

@@ -4,13 +4,13 @@
    "resources" : [
       {
          "name" : "hello",
-         "source" : "print'hello!'",
+         "source" : "print'hello from resource string!'",
          "source_type" : "string"
       },
       {
          "member_name" : "test_module",
          "name" : "test/test",
-         "source" : "local t={}\nt.hello=function() print'hello!' end\nreturn t\n",
+         "source" : "local t={}\nt.hello=function() print'hello from resource module!' end\nreturn t\n",
          "source_type" : "string"
       }
    ],
