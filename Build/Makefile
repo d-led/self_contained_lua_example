@@ -6,17 +6,22 @@ ifndef config
 endif
 export config
 
-PROJECTS := self_contained_lua_example
+PROJECTS := bundle self_contained_lua_example
 
 .PHONY: all clean help $(PROJECTS)
 
 all: $(PROJECTS)
 
-self_contained_lua_example: 
+bundle: 
+	@echo "==== Building bundle ($(config)) ===="
+	@${MAKE} --no-print-directory -C . -f bundle.make
+
+self_contained_lua_example: bundle
 	@echo "==== Building self_contained_lua_example ($(config)) ===="
 	@${MAKE} --no-print-directory -C . -f self_contained_lua_example.make
 
 clean:
+	@${MAKE} --no-print-directory -C . -f bundle.make clean
 	@${MAKE} --no-print-directory -C . -f self_contained_lua_example.make clean
 
 help:
@@ -29,6 +34,7 @@ help:
 	@echo "TARGETS:"
 	@echo "   all (default)"
 	@echo "   clean"
+	@echo "   bundle"
 	@echo "   self_contained_lua_example"
 	@echo ""
 	@echo "For more information, see http://industriousone.com/premake/quick-start"

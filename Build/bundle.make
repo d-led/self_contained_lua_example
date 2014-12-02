@@ -20,56 +20,51 @@ ifndef RESCOMP
 endif
 
 ifeq ($(config),debug)
-  OBJDIR     = Debug/obj/Debug/self_contained_lua_example
+  OBJDIR     = Debug/obj/Debug/bundle
   TARGETDIR  = ../linux/bin/Debug
-  TARGET     = $(TARGETDIR)/self_contained_lua_example
+  TARGET     = $(TARGETDIR)/libbundle.a
   DEFINES   += -DDEBUG -D_DEBUG
   INCLUDES  += -I.. -I../LuaBridge-1.0.2 -I../LuaState/include -I../bundle -I/usr/include/lua5.1
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -g -v -fPIC -std=c++0x
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L.. -L. -L../linux/bin/Debug
-  LDDEPS    += ../linux/bin/Debug/libbundle.a
-  LIBS      += $(LDDEPS) -llua5.1 -lpthread
-  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L.. -L.
+  LDDEPS    +=
+  LIBS      += $(LDDEPS) -lpthread
+  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
   endef
   define POSTBUILDCMDS
-	@echo Running post-build commands
-	$(TARGET)
   endef
 endif
 
 ifeq ($(config),release)
-  OBJDIR     = Release/obj/Release/self_contained_lua_example
+  OBJDIR     = Release/obj/Release/bundle
   TARGETDIR  = ../linux/bin/Release
-  TARGET     = $(TARGETDIR)/self_contained_lua_example
+  TARGET     = $(TARGETDIR)/libbundle.a
   DEFINES   += -DRELEASE
   INCLUDES  += -I.. -I../LuaBridge-1.0.2 -I../LuaState/include -I../bundle -I/usr/include/lua5.1
   ALL_CPPFLAGS  += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS    += $(CFLAGS) $(ALL_CPPFLAGS) $(ARCH) -O2 -v -fPIC -std=c++0x
   ALL_CXXFLAGS  += $(CXXFLAGS) $(ALL_CFLAGS)
   ALL_RESFLAGS  += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  ALL_LDFLAGS   += $(LDFLAGS) -L.. -L. -L../linux/bin/Release -s
-  LDDEPS    += ../linux/bin/Release/libbundle.a
-  LIBS      += $(LDDEPS) -llua5.1 -lpthread
-  LINKCMD    = $(CXX) -o $(TARGET) $(OBJECTS) $(RESOURCES) $(ARCH) $(ALL_LDFLAGS) $(LIBS)
+  ALL_LDFLAGS   += $(LDFLAGS) -L.. -L. -s
+  LDDEPS    +=
+  LIBS      += $(LDDEPS) -lpthread
+  LINKCMD    = $(AR) -rcs $(TARGET) $(OBJECTS)
   define PREBUILDCMDS
   endef
   define PRELINKCMDS
   endef
   define POSTBUILDCMDS
-	@echo Running post-build commands
-	$(TARGET)
   endef
 endif
 
 OBJECTS := \
-	$(OBJDIR)/resource.o \
-	$(OBJDIR)/self_contained_lua_example.o \
+	$(OBJDIR)/bundle.o \
 
 RESOURCES := \
 
@@ -87,7 +82,7 @@ all: $(TARGETDIR) $(OBJDIR) prebuild prelink $(TARGET)
 	@:
 
 $(TARGET): $(GCH) $(OBJECTS) $(LDDEPS) $(RESOURCES)
-	@echo Linking self_contained_lua_example
+	@echo Linking bundle
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -108,7 +103,7 @@ else
 endif
 
 clean:
-	@echo Cleaning self_contained_lua_example
+	@echo Cleaning bundle
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(OBJDIR)
@@ -129,11 +124,7 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) -x c++-header $(ALL_CXXFLAGS) -MMD -MP $(DEFINES) $(INCLUDES) -o "$@" -MF "$(@:%.gch=%.d)" -c "$<"
 endif
 
-$(OBJDIR)/resource.o: ../resource.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
-
-$(OBJDIR)/self_contained_lua_example.o: ../self_contained_lua_example.cpp
+$(OBJDIR)/bundle.o: ../bundle/bundle.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF $(@:%.o=%.d) -c "$<"
 

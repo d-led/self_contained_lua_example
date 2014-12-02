@@ -6,7 +6,8 @@ make_solution 'self_contained_lua_example'
 
 includedirs { 
 	'./LuaBridge-1.0.2',
-	'./LuaState/include'
+	'./LuaState/include',
+	'./bundle'
 }
 
 local OS = os.get()
@@ -31,9 +32,17 @@ local settings = {
 includedirs { settings.includedirs[OS] }
 libdirs { settings.libdirs[OS] }
 
+make_static_lib('bundle',{
+	'./bundle/bundle.cpp',
+	'./bundle/bundle.hpp'
+})
+make_cpp11()
+
 make_console_app('self_contained_lua_example', { '*.h', '*.cpp' })
 
-links { settings.links[OS] }
+run_target_after_build()
+
+links{settings.links[OS],'bundle'}
 
 make_cpp11()
 
