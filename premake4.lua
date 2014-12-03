@@ -51,6 +51,7 @@ function exec(command)
 	local handle = io.popen(command)
 	local result = handle:read("*a")
 	handle:close()
+	print(result)
 	return result
 end
 
