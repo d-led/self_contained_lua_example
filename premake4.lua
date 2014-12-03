@@ -49,7 +49,6 @@ make_cpp11()
 function exec(command)
 	local handle = io.popen(command)
 	local result = handle:read("*a")
-	print(result)
 	handle:close()
 	print(result)
 	return result
