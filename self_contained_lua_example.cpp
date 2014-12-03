@@ -11,6 +11,7 @@ int resource_module_loader(lua_State* L) {
     auto top = lua_gettop(L);
     test::Resource::GetKeys([name, L, &top](std::string const& resource_name) {
         if (resource_name == name) {
+            std::cout<<"Loading "<<name<<" from embedded an resource"<<std::endl;
             auto res = test::Resource::Get(resource_name);
             int ret = luaL_loadbuffer(L, res.c_str(), res.size(), name);
             switch (ret) {
@@ -45,7 +46,7 @@ int main() {
         
         s["my_module"]["hello"]();
         
- .      // Another module from static resources
+        // Another module from embedded resources
         s.doString("require 'lualinq'");
 
         // example from lualinq docu, Copyright (c) 2014, Marco Mastropaolo
@@ -56,6 +57,9 @@ int main() {
                 :select("say")
                 :foreach(print)
         )");
+
+        // should not cause any action since module already loaded
+        s.doString("require 'lualinq'");
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
