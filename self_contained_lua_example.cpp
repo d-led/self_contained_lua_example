@@ -16,9 +16,11 @@ int resource_module_loader(lua_State* L) {
             int ret = luaL_loadbuffer(L, res.c_str(), res.size(), name);
             switch (ret) {
                 case LUA_ERRMEM:
-                    return luaL_error(L, "Memory error: %s\n", lua_tostring(L, -1));
+                    top = luaL_error(L, "Memory error: %s\n", lua_tostring(L, -1));
+                    return;
                 case LUA_ERRSYNTAX:
-                    return luaL_error(L, "Syntax error: %s\n", lua_tostring(L, -1));
+                    top = luaL_error(L, "Syntax error: %s\n", lua_tostring(L, -1));
+                    return;
             }
             top = 1;
         }
