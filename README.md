@@ -12,6 +12,10 @@ the resources (scripts) are embedded using the resource compiler [ris](https://g
 premake4 res
 ```
 
+custom lua module loader
+------------------------
+the example features a custom lua module loader ([`resource_module_loader`, `set_loader`](self_contained_lua_example.cpp)) which allows loading lua modules from the embedded text resources.
+
 embedded libraries
 ------------------
 

@@ -1,5 +1,6 @@
 {
    "header" : "resource.h",
+   "class" : "Resource",
    "namespace" : "test",
    "resources" : [
       {
