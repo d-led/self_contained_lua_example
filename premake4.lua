@@ -1,8 +1,11 @@
-_G.package.path=_G.package.path..[[;./?.lua;./?/?.lua]]
+include 'premake'
 
-assert( require 'premake.quickstart' )
+lua = assert(dofile 'premake/recipes/lua.lua')
 
 make_solution 'self_contained_lua_example'
+
+lua:set_includedirs()
+lua:set_libdirs()
 
 includedirs { 
     './deps/LuaBridge-1.0.2',
@@ -10,39 +13,20 @@ includedirs {
     './deps/bundle'
 }
 
-local OS = os.get()
-local settings = {
-    includedirs = {
-        linux = {'/usr/include/lua5.1'},
-        windows = { [[C:\\luarocks\\2.1\\include]] },
-        macosx = { '/usr/local/include'}
-    },
-    libdirs = {
-        linux = {},
-        windows = { [[C:\\luarocks\\2.1]] },
-        macosx = { '/usr/local/lib'}	
-    },
-    links = {
-        linux = { 'lua5.1' },
-        windows = { 'lua5.1' },
-        macosx = { 'lua' }
-    }
-}
-
-includedirs { settings.includedirs[OS] }
-libdirs { settings.libdirs[OS] }
-
 make_static_lib('bundle',{
     './deps/bundle/bundle.cpp',
     './deps/bundle/bundle.hpp'
 })
+
 make_cpp11()
 
 make_console_app('self_contained_lua_example', { '*.h', '*.cpp', '*.lua', '*.json' })
 
 run_target_after_build()
 
-links{settings.links[OS],'bundle'}
+links { 'bundle' }
+
+lua:set_links()
 
 make_cpp11()
 
