@@ -2,10 +2,10 @@
 	path = premake
 	url = https://github.com/d-led/premake-meta-cpp.git
 [submodule "LuaState"]
-	path = LuaState
+	path = deps/LuaState
 	url = https://github.com/AdUki/LuaState.git
 [submodule "bundle"]
-	path = bundle
+	path = deps/bundle
 	url = https://github.com/r-lyeh/bundle.git
 [submodule "lualinq"]
 	path = deps/lualinq
