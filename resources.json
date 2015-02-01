@@ -17,7 +17,7 @@
       {
          "compression" : "LZ4HC",
          "name" : "lualinq",
-         "source" : "lualinq/release/lualinq/lualinq.lua",
+         "source" : "deps/lualinq/release/lualinq/lualinq.lua",
          "source_type" : "file"
       }
    ],

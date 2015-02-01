@@ -5,9 +5,9 @@ assert( require 'premake.quickstart' )
 make_solution 'self_contained_lua_example'
 
 includedirs { 
-    './LuaBridge-1.0.2',
-    './LuaState/include',
-    './bundle'
+    './deps/LuaBridge-1.0.2',
+    './deps/LuaState/include',
+    './deps/bundle'
 }
 
 local OS = os.get()
@@ -33,8 +33,8 @@ includedirs { settings.includedirs[OS] }
 libdirs { settings.libdirs[OS] }
 
 make_static_lib('bundle',{
-    './bundle/bundle.cpp',
-    './bundle/bundle.hpp'
+    './deps/bundle/bundle.cpp',
+    './deps/bundle/bundle.hpp'
 })
 make_cpp11()
 

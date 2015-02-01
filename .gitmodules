@@ -8,5 +8,5 @@
 	path = bundle
 	url = https://github.com/r-lyeh/bundle.git
 [submodule "lualinq"]
-	path = lualinq
+	path = deps/lualinq
 	url = https://github.com/xanathar/lualinq.git
