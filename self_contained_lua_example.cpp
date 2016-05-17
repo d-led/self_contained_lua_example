@@ -11,7 +11,7 @@ int resource_module_loader(lua_State* L) {
     auto top = lua_gettop(L);
     test::Resource::GetKeys([name, L, &top](std::string const& resource_name) {
         if (resource_name == name) {
-            std::cout<<"Loading "<<name<<" from embedded an resource"<<std::endl;
+            std::cout<<"Loading "<<name<<" from an embedded resource"<<std::endl;
             auto res = test::Resource::Get(resource_name);
             int ret = luaL_loadbuffer(L, res.c_str(), res.size(), name);
             switch (ret) {
